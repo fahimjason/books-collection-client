@@ -1,24 +1,63 @@
-import logo from './logo.svg';
 import './App.css';
+import AddBooks from './components/AddBooks/AddBooks';
+import Home from './components/Home/Home';
+import NotFound from './components/NotFound/NotFound';
+import CheckOut from './components/CheckOut/CheckOut';
+import OrderedBooks from './components/OrderedBooks/OrderedBooks';
+import ManageBooks from './components/ManageBooks/ManageBooks';
+import Header from './components/Header/Header';
+import Admin from './components/Admin/Admin';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Login from './components/Login/Login';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import { createContext, useState } from 'react';
+export const UserContext = createContext({});
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <PrivateRoute path="/admin">
+            <Admin />
+          </PrivateRoute>
+          <PrivateRoute path="/bookInfo/:bookId">
+            <CheckOut />
+          </PrivateRoute>
+          <Route path="/addBooks">
+            <AddBooks />
+          </Route>
+          <Route path="/manageBooks">
+            <ManageBooks />
+          </Route>
+          <PrivateRoute path="/orderedBooks">
+            <OrderedBooks />
+          </PrivateRoute>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 
