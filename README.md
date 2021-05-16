@@ -7,4 +7,7 @@ Technology:\
 • NodeJS, MongoDB, Heroku, Dotenv, express, ImageBB
 
 Please see the live site here:\
-https://github.com/fahimjason/books-collection-client.git
+https://books-collection-fahim.web.app
+
+Server-side code link:\
+https://github.com/fahimjason/books-collection-server
